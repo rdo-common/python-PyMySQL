@@ -1,8 +1,8 @@
 %global pypi_name PyMySQL
 
 Name:           python-%{pypi_name}
-Version:        0.6.6
-Release:        4%{?dist}
+Version:        0.6.7
+Release:        1%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -86,6 +86,9 @@ done
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Thu Oct 1 2015 Julien Enselme <jujens@jujens.eu> - 0.6.7-1
+- Update to 0.6.7
+
 * Thu Aug 6 2015 Julien Enselme <jujens@jujens.eu> - 0.6.6-4
 - Use %%license in %%files
 
