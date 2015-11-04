@@ -1,8 +1,11 @@
 %global pypi_name PyMySQL
+%if 0%{?fedora}
+%global with_python3 1
+%endif
 
 Name:           python-%{pypi_name}
 Version:        0.6.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -21,7 +24,6 @@ and Jython.
 
 
 %package -n     python2-%{pypi_name}
-Requires:       mariadb
 Summary:        Pure-Python MySQL client library
 %{?python_provide:%python_provide python2-%{pypi_name}}
 
@@ -30,44 +32,43 @@ This package contains a pure-Python MySQL client library. The goal of PyMySQL is
 to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
 
-
+%if 0%{?with_python3}
 %package -n     python3-%{pypi_name}
 Summary:        Pure-Python MySQL client library
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-Requires:       mariadb
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 This package contains a pure-Python MySQL client library. The goal of PyMySQL is
 to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
-
+%endif
 
 %prep
 %setup -qn %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
-
 %build
 %py2_build
+%if 0%{?with_python3}
 %py3_build
-
+%endif
 
 %install
 %py2_install
-%py3_install
-
-# Remove shebang
-for lib in %{buildroot}%{python3_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/*.py; do
-  sed -i '1{\@^#!/usr/bin/env python@d}' $lib
-done
-
 # Remove shebang
 for lib in %{buildroot}%{python2_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/*.py; do
   sed -i '1{\@^#!/usr/bin/env python@d}' $lib
 done
 
+%if 0%{?with_python3}
+%py3_install
+# Remove shebang
+for lib in %{buildroot}%{python3_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/*.py; do
+  sed -i '1{\@^#!/usr/bin/env python@d}' $lib
+done
+%endif
 
 %check
 # Tests cannot be launch on koji, they require a mysqldb running.
@@ -79,13 +80,19 @@ done
 %{python2_sitelib}/%{pypi_name}-%{version}-py%{python2_version}.egg-info/
 %{python2_sitelib}/pymysql/
 
+%if 0%{?with_python3}
 %files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/pymysql/
+%endif
 
 %changelog
+* Wed Nov  4 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 0.6.7-2
+- Drop unnecessary mariadb requirement
+- Add python3 conditionals in order to rebuild it in EL7
+
 * Thu Oct 1 2015 Julien Enselme <jujens@jujens.eu> - 0.6.7-1
 - Update to 0.6.7
 
