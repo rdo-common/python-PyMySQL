@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -89,6 +89,9 @@ done
 %endif
 
 %changelog
+* Thu Nov 5 2015 Julien Enselme <jujens@jujens.eu> - 0.6.7-3
+- Rebuilt for python 3.5
+
 * Wed Nov  4 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 0.6.7-2
 - Drop unnecessary mariadb requirement
 - Add python3 conditionals in order to rebuild it in EL7
