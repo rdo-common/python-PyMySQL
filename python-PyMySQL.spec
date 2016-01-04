@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -89,6 +89,9 @@ done
 %endif
 
 %changelog
+* Mon Jan 4 2016 Julien Enselme <jujens@jujens.eu> - 0.6.7-4
+- Correct installation problems due to Requires: mariadb
+
 * Thu Nov 5 2015 Julien Enselme <jujens@jujens.eu> - 0.6.7-3
 - Rebuilt for python 3.5
 
