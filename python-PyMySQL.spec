@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -89,6 +89,9 @@ done
 %endif
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Mon Jan 4 2016 Julien Enselme <jujens@jujens.eu> - 0.6.7-4
 - Correct installation problems due to Requires: mariadb
 
