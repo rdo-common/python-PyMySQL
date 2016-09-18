@@ -4,13 +4,13 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        0.6.7
-Release:        6%{?dist}
+Version:        0.7.9
+Release:        1%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}/
-Source0:        https://pypi.python.org/packages/source/P/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/a4/c4/c15457f261fda9839637de044eca9b6da8f55503183fe887523801b85701/PyMySQL-0.7.9.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -89,6 +89,9 @@ done
 %endif
 
 %changelog
+* Sun Sep 18 2016 Julien Enselme <jujens@jujens.eu> - 0.7.9-1
+- Update to 0.7.9
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.7-6
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
