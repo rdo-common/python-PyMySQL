@@ -5,12 +5,14 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}/
 Source0:        https://pypi.python.org/packages/a4/c4/c15457f261fda9839637de044eca9b6da8f55503183fe887523801b85701/PyMySQL-0.7.9.tar.gz
+
+Patch1:         bz1378008-add-bind-address-option.patch
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -48,6 +50,8 @@ and Jython.
 %prep
 %setup -qn %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
+
+%patch1 -p1
 
 %build
 %py2_build
@@ -89,6 +93,10 @@ done
 %endif
 
 %changelog
+* Wed Nov 23 2016 Damien Ciabrini <dciabrin@redhat.com> - 0.7.9-2
+- cherrypick commit 755dfdc upstream to allow bind before connect
+  Related: rhbz#1378008
+
 * Sun Sep 18 2016 Julien Enselme <jujens@jujens.eu> - 0.7.9-1
 - Update to 0.7.9
 
