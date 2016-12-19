@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -93,6 +93,9 @@ done
 %endif
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.7.9-3
+- Rebuild for Python 3.6
+
 * Wed Nov 23 2016 Damien Ciabrini <dciabrin@redhat.com> - 0.7.9-2
 - cherrypick commit 755dfdc upstream to allow bind before connect
   Related: rhbz#1378008
