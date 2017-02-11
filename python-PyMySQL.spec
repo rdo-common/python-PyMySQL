@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -93,6 +93,9 @@ done
 %endif
 
 %changelog
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.7.9-3
 - Rebuild for Python 3.6
 
