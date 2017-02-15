@@ -4,15 +4,13 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        0.7.9
-Release:        4%{?dist}
+Version:        0.7.10
+Release:        10%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}/
-Source0:        https://pypi.python.org/packages/a4/c4/c15457f261fda9839637de044eca9b6da8f55503183fe887523801b85701/PyMySQL-0.7.9.tar.gz
-
-Patch1:         bz1378008-add-bind-address-option.patch
+Source0:        https://pypi.python.org/packages/90/c2/d81638491baa572d6e79b78bde42c7449d2e45b578c919c0df1a76cb859b/PyMySQL-0.7.10.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -47,17 +45,18 @@ to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
 %endif
 
+
 %prep
 %setup -qn %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
-%patch1 -p1
 
 %build
 %py2_build
 %if 0%{?with_python3}
 %py3_build
 %endif
+
 
 %install
 %py2_install
@@ -73,6 +72,7 @@ for lib in %{buildroot}%{python3_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/
   sed -i '1{\@^#!/usr/bin/env python@d}' $lib
 done
 %endif
+
 
 %check
 # Tests cannot be launch on koji, they require a mysqldb running.
@@ -92,7 +92,11 @@ done
 %{python3_sitelib}/pymysql/
 %endif
 
+
 %changelog
+* Wed Feb 15 2017 Julien Enselme <jujens@jujens.eu> - 0.7.10-1
+- Update to 0.7.10
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
