@@ -4,13 +4,13 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        0.7.10
-Release:        10%{?dist}
+Version:        0.7.11
+Release:        1%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}/
-Source0:        https://pypi.python.org/packages/90/c2/d81638491baa572d6e79b78bde42c7449d2e45b578c919c0df1a76cb859b/PyMySQL-0.7.10.tar.gz
+Source0:        https://pypi.python.org/packages/29/f8/919a28976bf0557b7819fd6935bfd839118aff913407ca58346e14fa6c86/PyMySQL-0.7.11.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -94,6 +94,9 @@ done
 
 
 %changelog
+* Fri Apr 07 2017 Julien Enselme <jujens@jujens.eu> - 0.7.11-1
+- Update to 0.7.11
+
 * Wed Feb 15 2017 Julien Enselme <jujens@jujens.eu> - 0.7.10-1
 - Update to 0.7.10
 
