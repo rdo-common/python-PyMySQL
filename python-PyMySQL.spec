@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -14,7 +14,7 @@ Source0:        https://files.pythonhosted.org/packages/a8/b4/3544c8e6ed9b1c6a00
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
+BuildRequires:  python2-setuptools
 
 
 %description
@@ -94,6 +94,10 @@ done
 
 
 %changelog
+* Mon Jan 15 2018 Iryna Shcherbina <ishcherb@redhat.com> - 0.8.0-2
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Wed Dec 27 2017 Julien Enselme <jujens@jujens.eu> - 0.8.0-1
 - Update to 0.8.0
 
