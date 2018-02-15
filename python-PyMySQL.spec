@@ -1,11 +1,9 @@
 %global pypi_name PyMySQL
-%if 0%{?fedora}
 %global with_python3 1
-%endif
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -35,9 +33,9 @@ and Jython.
 %if 0%{?with_python3}
 %package -n     python3-%{pypi_name}
 Summary:        Pure-Python MySQL client library
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 This package contains a pure-Python MySQL client library. The goal of PyMySQL is
@@ -94,6 +92,9 @@ done
 
 
 %changelog
+* Thu Feb 15 2018 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 0.8.0-4
+- make spec file compatible with epel7
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
