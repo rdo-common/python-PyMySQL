@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -34,11 +34,11 @@ This package contains a pure-Python MySQL client library. The goal of PyMySQL is
 to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
 
-%package -n     python3-%{pypi_name}
+%package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        Pure-Python MySQL client library
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
+%description -n python%{python3_pkgversion}-%{pypi_name}
 This package contains a pure-Python MySQL client library. The goal of PyMySQL is
 to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
@@ -78,13 +78,16 @@ done
 %{python2_sitelib}/%{pypi_name}-%{version}-py%{python2_version}.egg-info/
 %{python2_sitelib}/pymysql/
 
-%files -n python3-%{pypi_name}
+%files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Mon Mar 19 2018 Carl George <carl@george.computer> - 0.8.0-5
+- Rename python3 subpackage to python34
+
 * Thu Feb 15 2018 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 0.8.0-4
 - make spec file compatible with epel7
 - remove conditionals and always build for Python 3
