@@ -1,8 +1,8 @@
 %global pypi_name PyMySQL
 
 Name:           python-%{pypi_name}
-Version:        0.8.0
-Release:        5%{?dist}
+Version:        0.8.1
+Release:        1%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -85,6 +85,9 @@ done
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Mon May 07 2018 Julien Enselme <jujens@jujens.eu> - 0.8.1-1
+- Update to 0.8.1
+
 * Mon Mar 19 2018 Carl George <carl@george.computer> - 0.8.0-5
 - Rename python3 subpackage to python34
 
