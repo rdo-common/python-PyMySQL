@@ -14,10 +14,12 @@ BuildArch:      noarch
 # for python2
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
+BuildRequires:  python2-cryptography
 
 # for python3
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-cryptography
 
 %description
 This package contains a pure-Python MySQL client library. The goal of PyMySQL is
@@ -27,6 +29,7 @@ and Jython.
 
 %package -n     python2-%{pypi_name}
 Summary:        Pure-Python MySQL client library
+Requires:       python2-cryptography
 %{?python_provide:%python_provide python2-%{pypi_name}}
 
 %description -n python2-%{pypi_name}
@@ -36,6 +39,7 @@ and Jython.
 
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        Pure-Python MySQL client library
+Requires:       python%{python3_pkgversion}-cryptography
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
@@ -47,6 +51,8 @@ and Jython.
 %prep
 %setup -qn %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
+# Remove tests files so they are not installed globally.
+rm -rf tests
 
 
 %build
