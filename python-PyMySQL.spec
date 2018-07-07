@@ -1,7 +1,7 @@
 %global pypi_name PyMySQL
 
 Name:           python-%{pypi_name}
-Version:        0.9.1
+Version:        0.9.2
 Release:        1%{?dist}
 Summary:        Pure-Python MySQL client library
 
@@ -63,15 +63,15 @@ rm -rf tests
 %install
 %py2_install
 # Remove shebang
-for lib in %{buildroot}%{python2_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/*.py; do
-  sed -i '1{\@^#!/usr/bin/env python@d}' $lib
-done
+#for lib in %{buildroot}%{python2_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/*.py; do
+#  sed -i '1{\@^#!/usr/bin/env python@d}' $lib
+#done
 
 %py3_install
 # Remove shebang
-for lib in %{buildroot}%{python3_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/*.py; do
-  sed -i '1{\@^#!/usr/bin/env python@d}' $lib
-done
+#for lib in %{buildroot}%{python3_sitelib}/pymysql/tests/thirdparty/test_MySQLdb/*.py; do
+#  sed -i '1{\@^#!/usr/bin/env python@d}' $lib
+#done
 
 
 %check
@@ -91,6 +91,9 @@ done
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Fri Jul 06 2018 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 0.9.2-1
+- Update to 0.9.2
+
 * Tue Jul 03 2018 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 0.9.1-1
 - Update to 0.9.1
 
