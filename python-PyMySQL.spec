@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -91,6 +91,9 @@ rm -rf tests
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Fri Jul 06 2018 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 0.9.2-1
 - Update to 0.9.2
 
