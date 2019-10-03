@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -57,6 +57,9 @@ rm -rf tests
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.9.2-7
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
 * Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.9.2-6
 - Rebuilt for Python 3.8
 
