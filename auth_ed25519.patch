@@ -1,0 +1,92 @@
+# taken from https://github.com/PyMySQL/PyMySQL/pull/791/commits
+# stripped the patches for tests and development files
+
+From: Damien Ciabrini <damien.ciabrini@gmail.com>
+Date: Tue, 4 Jun 2019 09:28:29 +0200
+Subject: [PATCH] Support for MariaDB's auth_ed25519 authentication plugin
+ (#786)
+
+diff --git a/pymysql/_auth.py b/pymysql/_auth.py
+index aa082dfe..0a09de4e 100644
+--- a/pymysql/_auth.py
++++ b/pymysql/_auth.py
+@@ -114,6 +114,66 @@ def _hash_password_323(password):
+     return struct.pack(">LL", r1, r2)
+ 
+ 
++# MariaDB's client_ed25519-plugin
++# https://mariadb.com/kb/en/library/connection/#client_ed25519-plugin
++
++_nacl_bindings = False
++
++
++def _init_nacl():
++    global _nacl_bindings
++    try:
++        from nacl import bindings
++        _nacl_bindings = bindings
++    except ImportError:
++        raise RuntimeError("'pynacl' package is required for ed25519_password auth method")
++
++
++def _scalar_clamp(s32):
++    ba = bytearray(s32)
++    ba0 = bytes(bytearray([ba[0] & 248]))
++    ba31 = bytes(bytearray([(ba[31] & 127) | 64]))
++    return ba0 + bytes(s32[1:31]) + ba31
++
++
++def ed25519_password(password, scramble):
++    """Sign a random scramble with elliptic curve Ed25519.
++
++    Secret and public key are derived from password.
++    """
++    # variable names based on rfc8032 section-5.1.6
++    #
++    if not _nacl_bindings:
++        _init_nacl()
++
++    # h = SHA512(password)
++    h = hashlib.sha512(password).digest()
++
++    # s = prune(first_half(h))
++    s = _scalar_clamp(h[:32])
++
++    # r = SHA512(second_half(h) || M)
++    r = hashlib.sha512(h[32:] + scramble).digest()
++
++    # R = encoded point [r]B
++    r = _nacl_bindings.crypto_core_ed25519_scalar_reduce(r)
++    R = _nacl_bindings.crypto_scalarmult_ed25519_base_noclamp(r)
++
++    # A = encoded point [s]B
++    A = _nacl_bindings.crypto_scalarmult_ed25519_base_noclamp(s)
++
++    # k = SHA512(R || A || M)
++    k = hashlib.sha512(R + A + scramble).digest()
++
++    # S = (k * s + r) mod L
++    k = _nacl_bindings.crypto_core_ed25519_scalar_reduce(k)
++    ks = _nacl_bindings.crypto_core_ed25519_scalar_mul(k, s)
++    S = _nacl_bindings.crypto_core_ed25519_scalar_add(ks, r)
++
++    # signature = R || S
++    return R + S
++
++
+ # sha256_password
+ 
+ 
+diff --git a/pymysql/connections.py b/pymysql/connections.py
+index d9ade9a2..df092929 100644
+--- a/pymysql/connections.py
++++ b/pymysql/connections.py
+@@ -889,6 +889,8 @@ def _process_auth(self, plugin_name, auth_packet):
+             return _auth.sha256_password_auth(self, auth_packet)
+         elif plugin_name == b"mysql_native_password":
+             data = _auth.scramble_native_password(self.password, auth_packet.read_all())
++        elif plugin_name == b'client_ed25519':
++            data = _auth.ed25519_password(self.password, auth_packet.read_all())
+         elif plugin_name == b"mysql_old_password":
+             data = _auth.scramble_old_password(self.password, auth_packet.read_all()) + b'\0'
+         elif plugin_name == b"mysql_clear_password":
