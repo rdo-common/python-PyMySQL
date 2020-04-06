@@ -2,12 +2,14 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.3
-Release:        2%{?dist}
+Release:        2%{?dist}.rdo.1
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}/
 Source0:        https://files.pythonhosted.org/packages/source/P/PyMySQL/PyMySQL-%{version}.tar.gz
+
+Patch1:         auth_ed25519.patch
 
 BuildArch:      noarch
 
@@ -32,7 +34,7 @@ and Jython.
 
 
 %prep
-%setup -qn %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 # Remove tests files so they are not installed globally.
 rm -rf tests
@@ -57,6 +59,9 @@ rm -rf tests
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Fri Mar 27 2020 Damien Ciabrini <dciabrin@redhat.com> - 0.9.3-2.rdo.1
+- Added support for mariadb auth_ed25519  (#791)
+
 * Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
